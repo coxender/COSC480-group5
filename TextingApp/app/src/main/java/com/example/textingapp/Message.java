@@ -1,22 +1,31 @@
 package com.example.textingapp;
 
 public class Message {
+    /*
+
+     */
     public String msg;
-    public String usr;
+    public String usrSent;
+    public String usrReceive;
+    public int method;
 
     public Message() {
 
     }
-    public Message(String msg, String usr) {
+    public Message(String msg, String usrSent, String usrReceive, int method) {
         this.msg = msg;
-        this.usr = usr;
+        this.usrSent = usrSent;
+        this.usrReceive = usrReceive;
+        this.method = method;
     }
 
     @Override
     public String toString() {
         return "Message{" +
                 "msg='" + msg + '\'' +
-                ", usr='" + usr + '\'' +
+                ", usrSent='" + usrSent + '\'' +
+                ", usrReceive='" + usrReceive + '\'' +
+                ", method=" + method +
                 '}';
     }
 }
