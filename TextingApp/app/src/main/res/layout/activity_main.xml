@@ -6,10 +6,10 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".MainActivity">
 
-<ListView
-    android:id="@+id/listView"
-    android:layout_width="match_parent"
-    android:layout_height="500dp" />
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="500dp" />
 <EditText
     android:id="@+id/email"
     android:layout_width="300dp"
@@ -20,18 +20,18 @@ tools:context=".MainActivity">
     android:gravity="start|top"
     android:hint="email to send to"
     android:inputType="textMultiLine"
-    android:autofillHints="" />
-<EditText
-    android:id="@+id/editText"
-    android:layout_width="300dp"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="510dp"
-    android:ems="10"
-    android:gravity="start|top"
-    android:hint="message"
-    android:inputType="textMultiLine"
-    android:autofillHints="" />
+     />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="510dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="message"
+        android:inputType="textMultiLine" />
 
 <Button
     android:id="@+id/button"
@@ -41,10 +41,11 @@ tools:context=".MainActivity">
     android:layout_marginTop="510dp"
     android:onClick="sendButton"
     android:text="send string" />
-<Spinner
-    android:id="@+id/method"
-    android:layout_width="100dp"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentBottom="true"
-    android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/method"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
