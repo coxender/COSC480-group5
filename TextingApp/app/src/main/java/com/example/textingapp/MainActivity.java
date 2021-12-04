@@ -114,9 +114,8 @@ public class MainActivity extends AppCompatActivity {
                     }else if(method == 2){
                         DHKey keygen=new DHKey(model.get());
                         long key = keygen.getSecKey();
-                        long prime=keygen.getPrime();
                         System.out.println("key decrypt: "+key);
-                        decrypted=model.decryptDiffie(msgEncrypted,key,prime);
+                        decrypted=model.decryptDiffie(msgEncrypted,key);
                     }else if(method ==3){
                         int key=model.get();
                         String secret_key=String.valueOf(key);
@@ -176,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                 long key = keygen.getSecKey();
                 long prime=keygen.getPrime();
                 System.out.print("key encrypt: "+key);
-                encrypted=model.encryptDiffie(text,key,prime);
+                encrypted=model.encryptDiffie(text,key);
                 keygen.setPrime(key);
             }else if(method == 3){
                 int key=model.get();

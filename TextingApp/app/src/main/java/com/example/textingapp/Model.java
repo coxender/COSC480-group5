@@ -50,24 +50,20 @@ public class Model
 
         return output;
     }
-    public String encryptDiffie(String input, long key, long prime){
+    public String encryptDiffie(String input, long key){
         String output = "";
         for (int i = 0; i < input.length(); i++) {
-            if (Character.isLetter(input.charAt(i))) {
                 long code = (long) input.charAt(i);
                 output += (code + key) + ",";
-            }
-            else
-                output = output + input.charAt(i);
         }
         return (output);
     }
-    public String decryptDiffie(String code, long key, long prime){
+    public String decryptDiffie(String code, long key){
         String output="";
         String token;
         Long number;
         System.out.println("code:" + code);
-        code=code.replaceAll(" ","");
+        //code=code.replaceAll(" ","");
         Scanner scanner=new Scanner(code);
         scanner.useDelimiter(",");
         while(scanner.hasNext()){
