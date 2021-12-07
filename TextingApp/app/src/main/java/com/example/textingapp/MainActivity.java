@@ -25,6 +25,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText sendEmail;
     private ListView listView;
     private Spinner spinner;
-    private static final String[] paths = {"a", "b", "c"};
+    private static final String[] paths = {"Codebook", "Diffie Hellman", "AES"};
 
 
     PublicKey publicKey;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         FBA = FirebaseAuth.getInstance();
         fbUser = FBA.getCurrentUser();
         model = new Model();
-
+        model.set(17);//a key
         KeyPairGenerator keyPairGenerator = null;
 
         {
@@ -114,9 +115,8 @@ public class MainActivity extends AppCompatActivity {
                     }else if(method == 2){
                         DHKey keygen=new DHKey(model.get());
                         long key = keygen.getSecKey();
-                        long prime=keygen.getPrime();
-                        System.out.println("key decrypt: "+key);
-                        decrypted=model.decryptDiffie(msgEncrypted,key,prime);
+
+                        decrypted=model.decryptDiffie(msgEncrypted,key);
                     }else if(method ==3){
                         int key=model.get();
                         String secret_key=String.valueOf(key);
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 //TODO Decrypt
-
+                Collections.reverse(stringFinal);//puts new messages at the top
                 listView.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, stringFinal));
 
 
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(fbUser != null) {
 
-            String userEmail = fbUser.getEmail();
+            String userEmail = fbUser.getEmail().toLowerCase();
             Date date = new Date();
 
             String text = editText.getText().toString();
@@ -161,11 +161,11 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("Selected Method: " + s);
             int method = 1;
             switch(s){
-                case "a": method = 1;
+                case "Codebook": method = 1;
                     break;
-                case "b": method = 2;
-                break;
-                case "c": method = 3;
+                case "Diffie Hellman": method = 2;
+                    break;
+                case "AES": method = 3;
             }
 
             if (method == 1){
@@ -175,8 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
                 long key = keygen.getSecKey();
                 long prime=keygen.getPrime();
-                System.out.print("key encrypt: "+key);
-                encrypted=model.encryptDiffie(text,key,prime);
+                encrypted=model.encryptDiffie(text,key);
                 keygen.setPrime(key);
             }else if(method == 3){
                 int key=model.get();

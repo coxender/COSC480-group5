@@ -29,45 +29,45 @@ public class Model
 
     public String encrypt(String input)
     {
+        final int ASCII_RANGE=255;
         String output = "";
             for (int i = 0; i < input.length(); i++) {
-                if (Character.isLetter(input.charAt(i)))
-                    output = output + encrypt(input.charAt(i));
-                else
-                    output = output + input.charAt(i);
+                int code =(int) input.charAt(i);
+                code = (code + (key))%ASCII_RANGE;
+                output+=(char) code;
             }
-
-        return output;
+        System.out.print("Ecrypt: "+output);
+        return  output;
     }
 
     public String decrypt(String input)
     {
+        final int ASCII_RANGE=255;
         String output = "";
 
         for (int i = 0; i < input.length(); i++) {
-                output = output + decrypt(input.charAt(i));
+            int code =(int) input.charAt(i);
+            code = (code %ASCII_RANGE - (key));
+            output+=(char) code;
         }
-
+        System.out.print("NONE: "+ output);
         return output;
     }
-    public String encryptDiffie(String input, long key, long prime){
+
+
+    public String encryptDiffie(String input, long key){
         String output = "";
         for (int i = 0; i < input.length(); i++) {
-            if (Character.isLetter(input.charAt(i))) {
                 long code = (long) input.charAt(i);
                 output += (code + key) + ",";
-            }
-            else
-                output = output + input.charAt(i);
         }
         return (output);
     }
-    public String decryptDiffie(String code, long key, long prime){
+
+    public String decryptDiffie(String code, long key){
         String output="";
         String token;
         Long number;
-        System.out.println("code:" + code);
-        code=code.replaceAll(" ","");
         Scanner scanner=new Scanner(code);
         scanner.useDelimiter(",");
         while(scanner.hasNext()){
@@ -75,7 +75,6 @@ public class Model
             try {
                 number = Long.parseLong(token);
                 number = (number-key);
-                System.out.print(number);
                 output += (char) number.longValue();
             }catch(NumberFormatException e) {
 
@@ -91,39 +90,6 @@ public class Model
 
 
 
-    private char encrypt(char letter)
-    {
-        int code = code(letter);
-
-        code = (code + key%52)%52;
-
-        return character(code);
-    }
-
-    private char decrypt(char letter)
-    {
-        int code = code(letter);
-
-        code = (code - key%52 + 52)%52;
-
-        return character(code);
-    }
-
-    private int code(char letter)
-    {
-        if (Character.isLowerCase(letter))
-            return (int)letter - (int)'a';
-        else
-            return (int)letter - (int)'A' + 26;
-    }
-
-    private char character(int code)
-    {
-        if (code < 26)
-            return (char)((int)'a' + code);
-        else
-            return (char)((int)'A' + code - 26);
-    }
 
     public String encryptRSA(String stringToEncrypt, PublicKey publicKey) {
 

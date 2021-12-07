@@ -4,8 +4,8 @@ public class DHKey {
     long prime,primRoot, privkey,genkey;
 
     public DHKey(long privkey){
-        this.prime=223;
-        this.primRoot=12;
+        this.prime=557;
+        this.primRoot=72;
         this.privkey=privkey;
     }
     public DHKey(long p, long pr, long privkey){
