@@ -53,6 +53,8 @@ public class Model
         System.out.print("NONE: "+ output);
         return output;
     }
+
+
     public String encryptDiffie(String input, long key){
         String output = "";
         for (int i = 0; i < input.length(); i++) {
@@ -61,6 +63,7 @@ public class Model
         }
         return (output);
     }
+
     public String decryptDiffie(String code, long key){
         String output="";
         String token;

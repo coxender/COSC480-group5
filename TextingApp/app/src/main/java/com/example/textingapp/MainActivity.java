@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(fbUser != null) {
 
-            String userEmail = fbUser.getEmail();
+            String userEmail = fbUser.getEmail().toLowerCase();
             Date date = new Date();
 
             String text = editText.getText().toString();
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("Selected Method: " + s);
             int method = 1;
             switch(s){
-                case "None": method = 1;
+                case "Codebook": method = 1;
                     break;
                 case "Diffie Hellman": method = 2;
                     break;
