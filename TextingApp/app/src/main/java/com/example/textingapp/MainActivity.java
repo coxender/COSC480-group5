@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         FBA = FirebaseAuth.getInstance();
         fbUser = FBA.getCurrentUser();
         model = new Model();
-        model.set(17);//a key
+        model.set(17);
         KeyPairGenerator keyPairGenerator = null;
 
         {
@@ -108,15 +108,17 @@ public class MainActivity extends AppCompatActivity {
                     String msgEncrypted = x.getValue().get("msg").toString();
                     int method = Integer.parseInt(x.getValue().get("method").toString());
                     String decrypted="";
+                    //codebook
                     if (method == 1) {
 
                         decrypted = model.decrypt(msgEncrypted);
-
+                    //diffieHellman
                     }else if(method == 2){
                         DHKey keygen=new DHKey(model.get());
                         long key = keygen.getSecKey();
 
                         decrypted=model.decryptDiffie(msgEncrypted,key);
+                    //AES
                     }else if(method ==3){
                         int key=model.get();
                         String secret_key=String.valueOf(key);
@@ -125,11 +127,8 @@ public class MainActivity extends AppCompatActivity {
                     stringFinal.add(x.getValue().get("usrSent").toString() + " => " + x.getValue().get("usrReceive").toString() +":\n"+ decrypted);
                 });
 
-                //TODO Decrypt
                 Collections.reverse(stringFinal);//puts new messages at the top
                 listView.setAdapter(new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, stringFinal));
-
-
             }
 
             @Override
@@ -141,24 +140,23 @@ public class MainActivity extends AppCompatActivity {
         FBA = FirebaseAuth.getInstance();
 
     }
-
+    //send messages
     public void sendButton(View view){
-
+        //sends the string and information to the DB
 
         if(fbUser != null) {
-
+            //get message information
             String userEmail = fbUser.getEmail().toLowerCase();
             Date date = new Date();
 
             String text = editText.getText().toString();
-
             String email = sendEmail.getText().toString();
 
-
-            //TODO Encrypt
+            //find what option chosen and encrypt
             String encrypted="";
             String s = spinner.getSelectedItem().toString();
             System.out.println("Selected Method: " + s);
+
             int method = 1;
             switch(s){
                 case "Codebook": method = 1;
@@ -168,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 case "AES": method = 3;
             }
 
+            //encrypt using chosen method
             if (method == 1){
                 encrypted = model.encrypt(text);
             }else if(method == 2){
@@ -177,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 long prime=keygen.getPrime();
                 encrypted=model.encryptDiffie(text,key);
                 keygen.setPrime(key);
+
             }else if(method == 3){
                 int key=model.get();
                 String secret_key=String.valueOf(key);

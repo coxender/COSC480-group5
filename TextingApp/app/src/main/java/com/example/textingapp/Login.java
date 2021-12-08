@@ -18,11 +18,16 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //set User
         user_name=findViewById(R.id.email);
         pass_word=findViewById(R.id.password);
+
         Button btn_login = findViewById(R.id.btn_login);
         Button btn_sign = findViewById(R.id.btn_signup);
         mAuth=FirebaseAuth.getInstance();
+
+        //event for login
         btn_login.setOnClickListener(v -> {
             String email= user_name.getText().toString().trim();
             String password=pass_word.getText().toString().trim();
@@ -50,6 +55,8 @@ public class Login extends AppCompatActivity {
                 pass_word.requestFocus();
                 return;
             }
+
+            //Successfully logged in
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
                 if(task.isSuccessful())
                 {
