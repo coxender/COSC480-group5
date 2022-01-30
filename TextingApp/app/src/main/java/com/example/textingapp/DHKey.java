@@ -2,7 +2,7 @@ package com.example.textingapp;
 
 public class DHKey {
     long prime,primRoot, privkey,genkey;
-
+    //constructors
     public DHKey(long privkey){
         this.prime=557;
         this.primRoot=72;
@@ -13,6 +13,8 @@ public class DHKey {
         this.primRoot=pr;
         this.privkey=privkey;
     }
+
+    //modular arithmetic function
     private static long power(long pr, long privkey, long p){
         if(privkey==1) {
             return pr;
@@ -22,9 +24,11 @@ public class DHKey {
             return answer;
         }
     }
+    //calculates secret key
     public long getSecKey(){
         return power(this.primRoot,this.privkey,this.prime);
     }
+    //get and set
     public long getPrime(){
         return this.prime;
     }

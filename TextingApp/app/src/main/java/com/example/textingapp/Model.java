@@ -26,7 +26,7 @@ public class Model
     // Get an instance of the RSA key generator
 
 
-
+    //Option 1
     public String encrypt(String input)
     {
         final int ASCII_RANGE=255;
@@ -36,10 +36,9 @@ public class Model
                 code = (code + (key))%ASCII_RANGE;
                 output+=(char) code;
             }
-        System.out.print("Ecrypt: "+output);
+
         return  output;
     }
-
     public String decrypt(String input)
     {
         final int ASCII_RANGE=255;
@@ -55,6 +54,7 @@ public class Model
     }
 
 
+    //Option 2: Diffie Hellman
     public String encryptDiffie(String input, long key){
         String output = "";
         for (int i = 0; i < input.length(); i++) {
@@ -84,13 +84,12 @@ public class Model
         }
         return output;
     }
+    //Option 3 AES is not calculated in model, it is in AESTEST solely
 
 
 
 
-
-
-
+    //Option OLD: RSA
     public String encryptRSA(String stringToEncrypt, PublicKey publicKey) {
 
         //creates a cipher instance using RSA
